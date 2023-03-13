@@ -34,3 +34,21 @@ func main() {
 	}
 
 	total := 0
+	matched := 0
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Text()
+		total++
+
+		upper := strings.ToUpper(line)
+		lineLevel := "OTHER"
+		for _, lvl := range []string{"ERROR", "WARN", "INFO"} {
+			if strings.Contains(upper, lvl) {
+				lineLevel = lvl
+				break
+			}
+		}
+		counts[lineLevel]++
+
+		if *level != "" && !strings.EqualFold(lineLevel, *level) {
+			continue
