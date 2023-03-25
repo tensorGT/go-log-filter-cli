@@ -4,3 +4,5 @@ reading log file line by line in go with `bufio.Scanner`, filtering by keyword o
 
 ## usage
 ```bash
+go run . -file server.log -level ERROR -keyword timeout
+```

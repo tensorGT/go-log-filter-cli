@@ -52,3 +52,22 @@ func main() {
 
 		if *level != "" && !strings.EqualFold(lineLevel, *level) {
 			continue
+		}
+		if *keyword != "" && !strings.Contains(strings.ToLower(line), strings.ToLower(*keyword)) {
+			continue
+		}
+		matched++
+		fmt.Println(line)
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Println("scan error:", err)
+		return
+	}
+
+	fmt.Println("\n=== Summary ===")
+	fmt.Printf("Total lines: %d | Matched: %d\n", total, matched)
+	for _, k := range []string{"INFO", "WARN", "ERROR", "OTHER"} {
+		fmt.Printf("  %-6s : %d\n", k, counts[k])
+	}
+}
